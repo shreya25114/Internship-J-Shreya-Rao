@@ -5,7 +5,7 @@ The program covers integers, floating-point numbers, characters, boolean values,
 
 ---
 
-## 🚀 Features
+## Features
 - Prompts the user for:
   - Two integers
   - A floating-point number
@@ -21,7 +21,7 @@ The program covers integers, floating-point numbers, characters, boolean values,
 
 ---
 
-## 📋 Sample Output
+## Sample Output
 - Enter the first integer: 10
 - Enter the second integer: 20
 - Enter a floating-point number: 5.5
