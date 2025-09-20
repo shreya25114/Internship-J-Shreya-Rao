@@ -1,27 +1,37 @@
-# Java User Input Task
+# Java User Input Assignment
 
-This repository contains a simple Java program that demonstrates **basic user input handling** using the `Scanner` class.  
-The program covers integers, floating-point numbers, characters, boolean values, and strings, while performing arithmetic and logical operations.
+## Assignment Overview
+This repository contains my submission for the **Java Programming Task**.  
+The program demonstrates the use of the `Scanner` class for handling user input and performing various operations on integers, floating-point numbers, characters, boolean values, and strings.
 
 ---
 
-## Features
-- Prompts the user for:
+## Instructions Followed
+- The repository is **public** and structured **week-wise**.
+- This assignment is submitted to my **assigned mentor** (refer to mentor list).
+- Submission email will include my **full name** and use the **same email ID as mentioned in my resume**.
+- A **README file** is included with assignment details.
+
+---
+
+## Program Features
+- Accepts:
   - Two integers
   - A floating-point number
   - A single character
-  - A boolean value (`true/false`)
-  - Their name
+  - A boolean value
+  - User's name
 - Performs:
-  - Sum, difference, product, quotient, and remainder of integers
-  - Multiplication and square of the floating-point number
-  - ASCII next/previous character display
+  - Arithmetic operations (sum, difference, product, quotient, remainder)
+  - Floating-point multiplication and square calculation
+  - ASCII next and previous character display
   - Boolean negation and truth check
-  - Greeting with the user’s name in uppercase
+  - Greeting message with uppercase name
 
 ---
 
 ## Sample Output
+
 - Enter the first integer: 10
 - Enter the second integer: 20
 - Enter a floating-point number: 5.5
