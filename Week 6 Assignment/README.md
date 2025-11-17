@@ -1,189 +1,160 @@
-🛡️ Employee Management System — Spring Security Assignment
+🚀 Employee Management System – Spring Security
 
-A Spring Boot application demonstrating authentication, authorization, password encoding, role-based access control, and optional JWT security using Spring Security.
+A Spring Boot REST API demonstrating Spring Security fundamentals, including:
 
-📌 Features Implemented
-✅ 1. User Authentication
+User authentication
 
-Spring Security login (default or custom login API)
+Role-based authorization
 
-Users stored in H2 database (can switch to MySQL)
+Password encoding (BCrypt)
 
-Passwords encoded using BCryptPasswordEncoder
+Secured endpoints
 
-✅ 2. Role-Based Authorization
+JWT-based authentication (bonus)
 
-Defined roles:
+Exception handling
 
-ADMIN
+Clean API structure for Postman testing
 
-Full CRUD on employees (/api/employees/**)
+This project implements a basic Employee Management System with ADMIN and USER roles.
 
-USER
+📌 Features
+🔐 1. Authentication
 
-Can only view their profile (/api/profile)
+Supports login using Spring Security.
 
-✅ 3. Secured REST Endpoints
+Users stored in H2/MySQL (or in-memory depending on your implementation).
+
+Passwords encoded with BCryptPasswordEncoder.
+
+🛡️ 2. Role-Based Authorization
+Role	Capabilities
+ADMIN	Full CRUD on employees
+USER	Can only view employee details
+🔒 3. Secured Endpoints
 Endpoint	Method	Access
-/api/employees	GET	ADMIN
-/api/employees/{id}	GET	ADMIN
-/api/employees	POST	ADMIN
-/api/employees/{id}	PUT	ADMIN
-/api/employees/{id}	DELETE	ADMIN
-/api/profile	GET	USER / ADMIN
-⚡ 4. JWT Implementation (Bonus)
+/api/employees/**	ALL	ADMIN only
+/api/profile	GET	USER + ADMIN
+📝 4. JWT (Bonus)
 
-Stateless authentication
+If your uploaded ZIP contains JWT:
 
-/api/auth/login issues JWT token
+/api/auth/login → returns JWT token
 
-Token validation filter added in security chain
+All secured endpoints require:
 
-Secured every endpoint except login and signup
+Authorization: Bearer <token>
 
-🛑 5. Exception Handling
+⚠️ 5. Exception Handling
 
-Custom error responses for:
+Graceful handling of:
 
 401 Unauthorized
 
 403 Forbidden
 
-Invalid/Expired JWT tokens
+Custom JSON error responses
 
-📂 Project Structure
-src/main/java/com/example/ems
+📂 Project Structure (Typical)
+src/main/java/com/example/security/
 │
-├── config
+├── config/
 │   ├── SecurityConfig.java
-│   ├── JwtAuthFilter.java
+│   ├── JwtFilter.java
 │   └── JwtUtils.java
 │
-├── controller
+├── controller/
 │   ├── AuthController.java
-│   ├── EmployeeController.java
-│   └── ProfileController.java
+│   └── EmployeeController.java
 │
-├── entity
+├── entity/
 │   ├── User.java
 │   └── Employee.java
 │
-├── repository
+├── repository/
 │   ├── UserRepository.java
 │   └── EmployeeRepository.java
 │
-├── service
+├── service/
 │   ├── UserService.java
 │   └── EmployeeService.java
-│
-└── EmsApplication.java
 
-🗄️ Database
-
-You can use:
-
-H2 (default)
-
-MySQL (optional)
-
-H2 Console
-http://localhost:8080/h2-console
-
-
-Default JDBC URL:
-
-jdbc:h2:mem:testdb
-
-👥 Default Users
-Role	Email	Password
-ADMIN	admin@ems.com
-	admin123
-USER	user@ems.com
-	user123
-
-(Passwords stored encoded with BCrypt)
-
-🚀 How to Run
-1. Clone the repository
-git clone https://github.com/your-username/spring-security-ems.git
-cd spring-security-ems
-
-2. Build & Run
-mvn spring-boot:run
-
-3. Access API
-
-Server runs at:
-
-http://localhost:8080
-
-🧪 API Testing (Postman / cURL)
-🔑 Login to get JWT Token
-POST /api/auth/login
-{
-  "email": "admin@ems.com",
-  "password": "admin123"
-}
-
-🧵 Use Token
-
-Add header:
-
-Authorization: Bearer <token>
-
-🧑‍💼 ADMIN – Get All Employees
-GET /api/employees
-Authorization: Bearer <token>
-
-👤 Profile – USER & ADMIN
-GET /api/profile
-Authorization: Bearer <token>
-
-📬 Postman Collection
-
-A collection containing:
-✔ Login
-✔ Employee API tests
-✔ Profile endpoint
-
-(Attach JSON file or add link here)
-
-📘 Technologies Used
+🛠️ Tech Stack
 
 Java 17+
 
 Spring Boot 3.x
 
-Spring Security 6+
+Spring Security
 
-JWT
+Spring Data JPA
 
-BCrypt
+JWT (jjwt or auth0)
 
-H2 / MySQL
+H2/MySQL
 
 Maven
 
-➕ Bonus Features Implemented (If applicable)
+▶️ Running the Project
+1. Clone the repository
+git clone https://github.com/<your-username>/<repo-name>.git
+cd <repo-name>
 
-Method-level security using @PreAuthorize
+2. Update database credentials (if using MySQL)
 
-Custom authentication entry point
+Edit application.properties.
 
-Global exception handler
+3. Build & run
+mvn spring-boot:run
 
-DTO + Mapper pattern
+4. Open H2 Console (if enabled)
+http://localhost:8080/h2-console
 
-📝 Future Improvements
+👤 Default User Credentials
+ADMIN
+username: admin
+password: admin123
+role: ROLE_ADMIN
 
-Refresh tokens
+USER
+username: user
+password: user123
+role: ROLE_USER
 
-Logout with blacklist
 
-User registration with email verification
+(Adjust according to your actual project’s data initialization.)
 
-UI using Angular/React
+🔗 API Endpoints
+🔐 Authentication
+Method	Endpoint	Description
+POST	/api/auth/login	Get JWT Token
 
-📄 License
+Sample Request
 
-MIT License (optional)
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+👥 Employee APIs (ADMIN only)
+Method	Endpoint	Description
+GET	/api/employees	List all employees
+GET	/api/employees/{id}	Get employee by ID
+POST	/api/employees	Create a new employee
+PUT	/api/employees/{id}	Update employee
+DELETE	/api/employees/{id}	Delete employee
+🧑‍💼 Profile (USER + ADMIN)
+Method	Endpoint	Description
+GET	/api/profile	Get details of logged-in user
+🧪 Postman Guide
+Step 1: Login
+
+Send POST request to:
+
+/api/auth/login
+
+
+Copy the token from the response.
+
+Step 2: Add header for secured calls
+Authorization: Bearer <token>
