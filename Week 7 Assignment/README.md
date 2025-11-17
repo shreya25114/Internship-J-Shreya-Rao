@@ -1,137 +1,133 @@
-Angular Authentication + To-Do App
+🛡️ Employee Management System — Spring Security Assignment
 
-A beginner-friendly Angular application built as an internship assignment.
-Includes Signup, Login, and To-Do Management with form validations, route guards, and local storage–based persistence.
+A Spring Boot application demonstrating authentication, authorization, password encoding, role-based access control, and optional JWT security using Spring Security.
 
-🌟 Features
-🔐 1. Signup Page
+📌 Features Implemented ✅ 1. User Authentication
 
-Full Name, Email, Password, Confirm Password
+Spring Security login (default or custom login API)
 
-Validations:
+Users stored in H2 database (can switch to MySQL)
 
-All fields required
+Passwords encoded using BCryptPasswordEncoder
 
-Email format validation
+✅ 2. Role-Based Authorization
 
-Password minimum 6 characters
+Defined roles:
 
-Confirm password must match
+ADMIN
 
-On success → user data saved (localStorage/service)
+Full CRUD on employees (/api/employees/**)
 
-Redirects to Login page
+USER
 
-🔑 2. Login Page
+Can only view their profile (/api/profile)
 
-Email & Password required
+✅ 3. Secured REST Endpoints Endpoint Method Access /api/employees GET ADMIN /api/employees/{id} GET ADMIN /api/employees POST ADMIN /api/employees/{id} PUT ADMIN /api/employees/{id} DELETE ADMIN /api/profile GET USER / ADMIN ⚡ 4. JWT Implementation (Bonus)
 
-Email format validation
+Stateless authentication
 
-Authenticates using saved signup data
+/api/auth/login issues JWT token
 
-On success → navigates to To-Do Page
+Token validation filter added in security chain
 
-On failure → shows error message
+Secured every endpoint except login and signup
 
-📝 3. To-Do List Page (Protected Route)
+🛑 5. Exception Handling
 
-Accessible only after login.
+Custom error responses for:
 
-Features:
+401 Unauthorized
 
-Add new task
+403 Forbidden
 
-Title required
+Invalid/Expired JWT tokens
 
-Optional description
+📂 Project Structure src/main/java/com/example/ems │ ├── config │ ├── SecurityConfig.java │ ├── JwtAuthFilter.java │ └── JwtUtils.java │ ├── controller │ ├── AuthController.java │ ├── EmployeeController.java │ └── ProfileController.java │ ├── entity │ ├── User.java │ └── Employee.java │ ├── repository │ ├── UserRepository.java │ └── EmployeeRepository.java │ ├── service │ ├── UserService.java │ └── EmployeeService.java │ └── EmsApplication.java
 
-Mark tasks as completed
+🗄️ Database
 
-Delete tasks
+You can use:
 
-Separate lists:
+H2 (default)
 
-Pending Tasks
+MySQL (optional)
 
-Completed Tasks
+H2 Console http://localhost:8080/h2-console
 
-Logout button (clears login state)
+Default JDBC URL:
 
-🎁 Bonus Features (Optional)
+jdbc:h2:mem:testdb
 
-Task search
+👥 Default Users Role Email Password ADMIN admin@ems.com admin123 USER user@ems.com user123
 
-Filters: All / Completed / Pending
+(Passwords stored encoded with BCrypt)
 
-Add due date
+🚀 How to Run
 
-Auto-sort based on due date
+Clone the repository git clone https://github.com/your-username/spring-security-ems.git cd spring-security-ems
 
-🧱 Project Structure
-src/app
-│
-├── auth
-│   ├── login
-│   ├── signup
-│   ├── auth.service.ts
-│   └── auth.guard.ts
-│
-├── todo
-│   ├── todo.component.ts
-│   ├── todo.service.ts
-│
-├── shared
-│   └── models
-│
-├── app-routing.module.ts
-└── app.module.ts
+Build & Run mvn spring-boot:run
 
-🛠️ Technologies Used
+Access API
 
-Angular (latest version)
+Server runs at:
 
-TypeScript
+http://localhost:8080
 
-Reactive Forms
+🧪 API Testing (Postman / cURL) 🔑 Login to get JWT Token POST /api/auth/login { "email": "admin@ems.com", "password": "admin123" }
 
-Local Storage for data persistence
+🧵 Use Token
 
-Optional: Angular Material / Bootstrap
+Add header:
 
-🚀 Run the Project
-1️⃣ Clone the repository:
-git clone https://github.com/your-username/angular-todo-app.git
-cd angular-todo-app
+Authorization: Bearer
 
-2️⃣ Install dependencies:
-npm install
+🧑‍💼 ADMIN – Get All Employees GET /api/employees Authorization: Bearer
 
-3️⃣ Run the development server:
-ng serve
+👤 Profile – USER & ADMIN GET /api/profile Authorization: Bearer
 
-4️⃣ Open in browser:
-http://localhost:4200/
+📬 Postman Collection
 
-🔐 Default Test Credentials
+A collection containing: ✔ Login ✔ Employee API tests ✔ Profile endpoint
 
-You can sign up with any email/password.
-Stored locally inside browser localStorage.
+(Attach JSON file or add link here)
 
-🧪 Testing Notes
+📘 Technologies Used
 
-Form validations tested
+Java 17+
 
-Unauthorized users cannot access To-Do page
+Spring Boot 3.x
 
-Data persists across reloads using localStorage
+Spring Security 6+
 
-📌 Future Improvements
+JWT
 
-JWT-based real backend authentication
+BCrypt
 
-Cloud Firestore / MongoDB storage
+H2 / MySQL
 
-User profile page
+Maven
 
-UI enhancements
+➕ Bonus Features Implemented (If applicable)
+
+Method-level security using @PreAuthorize
+
+Custom authentication entry point
+
+Global exception handler
+
+DTO + Mapper pattern
+
+📝 Future Improvements
+
+Refresh tokens
+
+Logout with blacklist
+
+User registration with email verification
+
+UI using Angular/React
+
+📄 License
+
+MIT License (optional)
